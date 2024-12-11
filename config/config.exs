@@ -9,6 +9,9 @@
 # move said applications out of the umbrella.
 import Config
 
+config :host, key: "localhost"
+config :port, key: "5000"
+
 # Sample configuration:
 #
 #     config :logger, :console,
