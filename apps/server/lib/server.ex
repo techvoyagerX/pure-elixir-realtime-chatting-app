@@ -1,18 +1,17 @@
 defmodule Server do
-  @moduledoc """
-  Documentation for `Server`.
-  """
+  use Application
 
-  @doc """
-  Hello world.
+  @impl true
+  def run do
+    host = Application.get_env(:host, :key)
+    port = Application.get_env(:host, :key)
 
-  ## Examples
+    children = [
+      {Socket, {host, port}},
+      {DynamicSupervisor, name: Room.Supervisor}
+    ]
 
-      iex> Server.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    opts = [strategy: :one_for_one, name: Server.Supervisior]
+    Supervisor.start_link(children, opts)
   end
 end
